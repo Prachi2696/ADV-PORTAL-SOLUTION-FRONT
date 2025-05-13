@@ -1,0 +1,38 @@
+.hvr-sweep-to-right {
+    /* padding: 20px; */
+    background: lightgrey;
+    display: inline-block;
+    transform: perspective(1px) translateZ(0);
+    position: relative;
+    transition: color 0.3s;
+  }
+  .hvr-sweep-to-right:before {
+    /* border-width: 3px; */
+    border-color: whitesmoke;
+    border-radius: 15px;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    /* background: #CACFD2   ; */
+    background:#8c8781 ;
+
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+    transition: transform 0.8s ease-out;
+  }
+
+  
+  .hvr-sweep-to-right:hover {
+    color: whitesmoke;
+    font: bold;
+    font-size: large;
+    
+  }
+  .hvr-sweep-to-right:hover:before {
+    
+    transform: scaleX(1);
+  }

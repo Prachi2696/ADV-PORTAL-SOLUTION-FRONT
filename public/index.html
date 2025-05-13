@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <!-- <link rel="icon" href="%PUBLIC_URL%/favicon.ico" /> -->
+  <link rel="icon" href="./advlogo2.ico" />
+  <!-- <link rel="icon" href="./favicon.ico" /> -->
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="description" content="Web site created using create-react-app" />
+  <!-- <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" /> -->
+
+  <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+  <!-- <link rel="manifest" href="%PUBLIC_URL%/manifest.json" /> -->
+  <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+
+  <!-- ////////////////////////////////////////////chatbot -->
+  <!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+    integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <link rel="stylesheet" href="src\assets\styles\chatbotstyle.css" /> -->
+
+  <!-- //////////////////////////// -->
+
+
+  <title>Aadhaar Data Vault</title>
+
+  <script src="https://translate.google.com/translate_a/element.js?cb=loadGoogleTranslate"></script>
+</head>
+
+<body class="rootbody">
+  <div id="root">
+  </div>
+  <style>
+    /* .goog-logo-link,
+    .goog-te-gadget {
+      display: none !important;
+    } */
+
+    
+    .goog-te-gadget-icon {
+      display: none;
+    }
+
+    .goog-te-banner {
+      display: none;
+      background-color: black;
+    }
+
+    .goog-te-banner-frame.skiptranslate {
+      display: none;
+    }
+
+    .goog-te-gadget-simple {
+      /* position: relative; */
+      /* left: 45%; */
+
+      /* top: 2.5px; */
+      /* background-color: #fff3e0 !important; */
+      /* background-color: pink !important; */
+      background-color: inherit;
+
+
+      /* background-image: 'linear-gradient(to right, orange , pink)' !important; */
+      font-size: 10pt !important;
+      font-weight: 15px;
+      border: none;
+      /* padding-top: 3px !important; */
+      width: 120px !important;
+      height: 20px !important;
+
+
+    }
+
+    .VIpgJd-ZVi9od-ORHb-OEVmcd {
+
+      /* position: relative; */
+      height: 10px !important;
+      display: none !important;
+
+    }
+
+    .goog-te-banner-frame.skiptranslate {
+      display: none !important;
+    }
+
+    .VIpgJd-ZVi9od-xl07Ob-lTBxed {
+      /* border: none; */
+      /* border: 1px solid black; */
+      border-left: none !important;
+    }
+
+    span[style="border-left: 1px solid rgb(187, 187, 187);"] {
+      display: none;
+    }
+
+    span[aria-hidden="true"] {
+      display: none !important;
+    }
+
+
+
+
+    body {
+      top: 0px !important;
+    }
+  </style>
+
+  <script>
+
+    // var spanToRemove = document.querySelector('span[aria-hidden="true"][style=" "]');
+    // if (spanToRemove) {
+    //   spanToRemove.parentNode.removeChild(spanToRemove);
+    // }
+
+
+    // function loadGoogleTranslate() {
+    //   new google.translate.TranslateElement({
+    //     pageLanguage: 'en',
+    //     includedLanguages: 'en,hi,mr',
+    //     // layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+    //     // autoDisplay: false
+
+    //     autoDisplay: false,
+    //     gaTrack: false,
+    //     gaId: ''
+    //   }, "google_element");
+    // }
+
+    function loadGoogleTranslate() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'en',
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE, includedLanguages: "en,hi,mr"
+      }, 'google_element');
+    }
+  </script>
+
+
+  <!-- chatbot////////////////////// -->
+  <!-- <script>
+    $(document).on('click', '#clickMe', function () {
+      document.getElementById("close_iframe").style.display = "block";
+      document.getElementById("gparent").style.visibility = "visible";
+      document.getElementById("parent").style.visibility = "visible";
+      document.getElementById("clickMe").style.visibility = "hidden";
+
+    })
+    $(document).on('click', '#close_iframe', function () {
+      document.getElementById("close_iframe").style.display = "none";
+      document.getElementById("parent").style.visibility = "hidden";
+      document.getElementById("gparent").style.visibility = "hidden";
+      document.getElementById("clickMe").style.visibility = "visible";
+
+    })
+
+  </script> -->
+
+
+
+  <!-- <div id=logo>
+    <div class="user-photo">
+      <img id="clickMe" src="src\assets\img\advavatar.jpg" class="w3-display-bottomright" alt="chatboatlogo">
+    </div>
+  </div>
+  <div id=gparent style=visibility:hidden;>
+    <div id="parent" style="position: fixed; z-index: 9999; visibility: hidden;">
+      <iframe src="https://botai.in/Advbot/"></iframe>
+      <button class="btn" id="close_iframe"
+        style="display:block;color:white;background:#4094e7;border:none;font-size:26px"><i
+          class="fa-solid fa-circle-chevron-down"></i></button>
+
+    </div>
+  </div> -->
+
+  <!-- ////////////////////// -->
+  <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+</body>
+
+</html>

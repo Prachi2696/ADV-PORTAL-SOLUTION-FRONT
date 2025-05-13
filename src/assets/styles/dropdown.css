@@ -1,0 +1,6 @@
+    
+.dropdown-content li:hover {background-color: #ddd;}
+
+.dropdown:hover .dropdown-menu {display: block;}
+
+.dropdown:hover .dropdown-toggle {}
