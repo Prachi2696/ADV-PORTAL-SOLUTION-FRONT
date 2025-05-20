@@ -122,38 +122,38 @@ const d1 = [];
 
   useEffect(() => {
 
-    if (localStorage.getItem("LsdItped") === null) {
-      // Toastwarning("Please login first!")
-      window.location.replace(BaseLocal + "Logout");
-    }
-    else {
+    // if (localStorage.getItem("LsdItped") === null) {
+    //   // Toastwarning("Please login first!")
+    //   window.location.replace(BaseLocal + "Logout");
+    // }
+    // else {
 
-    } 
+    // } 
 
     
     /////////////////////////////get lc
-    var CryptoJS = require("crypto-js");
+    // var CryptoJS = require("crypto-js");
 
-    var base64Key = "QWJjZGVmZ2hpamtsbW5vcA==";
-    var key = CryptoJS.enc.Base64.parse(base64Key);
-    var plaintText = "x";
-    var encryptedData = CryptoJS.AES.encrypt(plaintText, key, {
-      mode: CryptoJS.mode.ECB,
-      padding: CryptoJS.pad.Pkcs7,
-    });
-    if (localStorage.getItem("LsdItped")) {
-      var decryptedData = CryptoJS.AES.decrypt(
-        localStorage.getItem("LsdItped").replace("slashinurl", "/").replace("plusinurl", "+"),
-        key,
-        {
-          mode: CryptoJS.mode.ECB,
-          padding: CryptoJS.pad.Pkcs7,
-        }
-      );
-      decryptedText = decryptedData.toString(CryptoJS.enc.Utf8);
-    }
-    console.log("decryptedText = in billing " + decryptedText);
-    setusername(decryptedText)
+    // var base64Key = "QWJjZGVmZ2hpamtsbW5vcA==";
+    // var key = CryptoJS.enc.Base64.parse(base64Key);
+    // var plaintText = "x";
+    // var encryptedData = CryptoJS.AES.encrypt(plaintText, key, {
+    //   mode: CryptoJS.mode.ECB,
+    //   padding: CryptoJS.pad.Pkcs7,
+    // });
+    // if (localStorage.getItem("LsdItped")) {
+    //   var decryptedData = CryptoJS.AES.decrypt(
+    //     localStorage.getItem("LsdItped").replace("slashinurl", "/").replace("plusinurl", "+"),
+    //     key,
+    //     {
+    //       mode: CryptoJS.mode.ECB,
+    //       padding: CryptoJS.pad.Pkcs7,
+    //     }
+    //   );
+    //   decryptedText = decryptedData.toString(CryptoJS.enc.Utf8);
+    // }
+    // console.log("decryptedText = in billing " + decryptedText);
+    // setusername(decryptedText)
     /////////////////////////////get username
 
     // -----------------------------------------code to check wheather user is logout or not----------------------------------------------

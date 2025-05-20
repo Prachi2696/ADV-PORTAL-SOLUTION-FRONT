@@ -52,6 +52,7 @@ import loadUserData from './components/loadUserData';
 import { Switch } from 'react-router-dom';
 import LoginPage from './components/LoginPage.js'
 import ForgotPassword from './components/ForgotPassword.js'
+import RegisterPage from './components/RegisterPage.js';
 
 
 // import PhotosnVideos from './components/PhotosnVideos';
@@ -298,6 +299,7 @@ function App() {
             <Switch>
               {/* <Route exact path="/deptadmin/loginwithjwt" component={LoginwithJWT} /> */}
               <Route exact path="/deptadmin/loginwithjwt" component={LoginPage} />
+              <Route exact path="/deptadmin/registrationaccount" component={RegisterPage} />
               {/* <PrivateRoute exact path="/deptadmin/test" component={loadUserData} /> */}
               <PrivateRoute exact path="/deptadmin/registration" component={Registration} />
               <PrivateRoute exact path="/deptadmin" component={Dashboard} />
