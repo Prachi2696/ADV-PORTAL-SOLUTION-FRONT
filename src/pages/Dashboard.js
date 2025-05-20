@@ -35,12 +35,8 @@ export default function Dashboard() {
 
   useEffect(() => {
     window.scrollTo(0,0)
+    const token = sessionStorage.getItem("token");
     
-    // localStorage.setItem('type', "d")
-    // dispatch(typeApiActionforDynamic());
-
-
-
     // if (localStorage.getItem("LsdItped") === null) {
     //   // Toastwarning("Please login first!")
     //   window.location.replace(BaseLocal + "Logout");

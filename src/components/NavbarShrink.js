@@ -31,9 +31,11 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import DrawerComp from "./Drawer";
 import { useTheme } from '@material-ui/core/styles';
 import { useSelector } from 'react-redux';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useEffect } from 'react';
 import BaseLocal from './BaseLocal';
+import { AuthContext } from '../App';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 
 export default function NavbarShrink() {
@@ -108,25 +110,25 @@ export default function NavbarShrink() {
 
     useEffect(() => {
         /////////////////////////////get lc
-        try {
-            var CryptoJS = require("crypto-js");
-            var base64Key = "QWJjZGVmZ2hpamtsbW5vcA==";
-            var key = CryptoJS.enc.Base64.parse(base64Key);
-            if (localStorage.getItem("LsdItped")) {
-                var decryptedData = CryptoJS.AES.decrypt(
-                    localStorage.getItem("LsdItped").replace("slashinurl", "/").replace("plusinurl", "+"),
-                    key,
-                    {
-                        mode: CryptoJS.mode.ECB,
-                        padding: CryptoJS.pad.Pkcs7,
-                    }
-                );
-                var decryptedText = decryptedData.toString(CryptoJS.enc.Utf8);
-            }
-            setusername(decryptedText);
-        } catch (error) {
-            console.log(error)
-        }
+        // try {
+        //     var CryptoJS = require("crypto-js");
+        //     var base64Key = "QWJjZGVmZ2hpamtsbW5vcA==";
+        //     var key = CryptoJS.enc.Base64.parse(base64Key);
+        //     if (localStorage.getItem("LsdItped")) {
+        //         var decryptedData = CryptoJS.AES.decrypt(
+        //             localStorage.getItem("LsdItped").replace("slashinurl", "/").replace("plusinurl", "+"),
+        //             key,
+        //             {
+        //                 mode: CryptoJS.mode.ECB,
+        //                 padding: CryptoJS.pad.Pkcs7,
+        //             }
+        //         );
+        //         var decryptedText = decryptedData.toString(CryptoJS.enc.Utf8);
+        //     }
+        //     setusername(decryptedText);
+        // } catch (error) {
+        //     console.log(error)
+        // }
         /////////////////////////////get username
     }, [])
 
@@ -140,10 +142,27 @@ export default function NavbarShrink() {
         history.push("/deptadmin")
     };
 
+    // const { isAuthenticated } = useContext(AuthContext);
+    const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
+
+    if (!isAuthenticated) return null;
+    // const [isAuthenticated, setIsAuthenticated] = useState(
+    //     !!sessionStorage.getItem("token")
+    //   );
+
+    const handleLogout = () => {
+        const token = sessionStorage.getItem('token'); // get before removing
+        sessionStorage.removeItem('token');            // then remove
+        setIsAuthenticated(false);                     // update context state
+        if (token !== null) {
+            history.push('/deptadmin/loginwithjwt');     // redirect only if user was logged in
+        }
+    };
+
     return (
         <Box sx={{ flexGrow: 1 }} >
             {/* #3f51b5 */}
-            <AppBar position="fixed" style={{ backgroundColor: theme.navbar.backgroundColor, marginTop: '90px' ,}} >
+            <AppBar position="fixed" style={{ backgroundColor: theme.navbar.backgroundColor, marginTop: '90px', }} >
                 <Toolbar variant={isSmallScreen ? 'regular' : 'dense'}>
 
 
@@ -244,7 +263,18 @@ export default function NavbarShrink() {
 
                             <Box sx={{ flexGrow: 1 }} />
                             <Box sx={{ flexGrow: 1 }} />
-                            {!authStore.loginStatus &&
+
+                            <Box sx={{ flexGrow: 0 }}>
+                                <Tooltip title='logout'>
+                                    <IconButton sx={{ p: 0 }} size='large' >
+                                        <a href="#"> <LogoutIcon style={{ color: 'white', width: isSmallScreen ? '60px' : '100px', height: '45px', paddingTop: '0px', paddingBottom: '0px', right: '0px' }} onClick={handleLogout} /> </a>
+                                       
+                                    </IconButton>
+                                </Tooltip>
+
+
+                            </Box>
+                            {/* {!authStore.loginStatus &&
                                 <Box sx={{ flexGrow: 0 }}>
                                     <Tooltip title='login'>
                                         <IconButton sx={{ p: 0 }} size='large' >
@@ -255,8 +285,8 @@ export default function NavbarShrink() {
 
 
                                 </Box>
-                            }
-                            {authStore.loginStatus &&
+                            } */}
+                            {/* {authStore.loginStatus &&
                                 <Box sx={{ flexGrow: 0 }}>
                                     <Tooltip title={username}>
                                         <IconButton style={{ outline: 'none' }} sx={{ p: 0 }} size='large' onClick={  processLogin } >
@@ -274,8 +304,8 @@ export default function NavbarShrink() {
                                     </Button>
 
                                 </Box>
-                            }
-                          
+                            } */}
+
 
                         </>
                     )}

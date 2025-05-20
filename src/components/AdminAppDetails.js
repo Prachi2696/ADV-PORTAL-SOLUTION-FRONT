@@ -210,7 +210,15 @@ export default function AdminAppDetails() {
         }
         fetchData();
 
-
+        const token = sessionStorage.getItem("token");
+        // if (token) {
+        //     const payload = JSON.parse(atob(token.split('.')[1]));
+        //     const exp = payload.exp;
+        //     if (Date.now() >= exp * 1000) {
+        //         sessionStorage.removeItem("token");
+        //         history.push('/deptadmin/loginwithjwt');
+        //     }
+        // }
 
     }, [])
 

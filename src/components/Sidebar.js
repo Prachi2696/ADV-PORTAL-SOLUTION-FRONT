@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import AdminNavbar from './AdminNavbar';
 import AdminNavbarLogout from './AdminNavbarLogout';
@@ -15,7 +15,7 @@ import { useTheme } from '@material-ui/core';
 import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import BarChartIcon from '@mui/icons-material/BarChart';
-
+import { useHistory } from 'react-router-dom';
 
 export default function Sidebar() {
     const theme = useTheme();
@@ -23,6 +23,20 @@ export default function Sidebar() {
     let { authStore } = useSelector((state) => state);
     const roleStatus = authStore.roletype;
 
+    var history = useHistory();
+    useEffect(()=>{
+        const token = sessionStorage.getItem("token");
+        if (token==null) {
+            // const payload = JSON.parse(atob(token.split('.')[1]));
+            // const exp = payload.exp;
+            // if (Date.now() >= exp * 1000) {
+                sessionStorage.removeItem("token");
+                history.push('/deptadmin/loginwithjwt');
+            // }
+        }
+    },[])
+
+    
 
     return (
 
@@ -42,14 +56,9 @@ export default function Sidebar() {
                         setShowSidebar={setShowSidebar}
                     />
 
-                {/* } */}
-                {/* <div
-                    className={`h-screen fixed top-0 md:left-0 sm:left-0 ${showSidebar} overflow-y-auto flex-row flex-nowrap overflow-hidden shadow-xl bg-white w-64 z-10 py-4 px-6 transition-all duration-300`}
-                    style={{ maxHeight: 'auto', height: 'auto', marginTop: '130px', backgroundColor: theme.sidebar.backgroundColor, position:'fixed',zIndex:'2'}}
-                > */}
+               
 
                 <div
-                    // style={{overflowY:"scroll"}}
                     className={`h-screen fixed top-0 md:left-0 sm:left-0 ${showSidebar} overflow-y-auto flex-row flex-nowrap overflow-hidden shadow-xl bg-white w-64 z-10 py-4 px-6 transition-all duration-300`}
                     style={{ maxHeight: 'auto', height: '60%', marginTop: '130px', backgroundColor: theme.sidebar.backgroundColor, position: 'fixed', zIndex: '2' }}
                 >
@@ -293,29 +302,13 @@ export default function Sidebar() {
                                 <br></br>
 
 
-                                {/* {authStore.activity?.includes("TRANSACTION_SPECIFIC_REPORT") &&
-
-
-                                <li className="rounded-lg mb-1 ">
-                                    <NavLink
-                                        to="/admin/usermanagement"
-                                        exact
-                                        className="flex items-center gap-4 text-sm text-gray-700 font-light px-4 py-3 rounded-lg"
-                                        activeClassName="bg-gradient-to-tr from-light-blue-500 to-light-blue-700 text-white shadow-md"
-                                    >
-                                        <TbReport />
-                                        User Management
-                                    </NavLink>
-                                </li>
-                            } */}
+                               
                             </ul>
                         </div>
                     </div>
                 </div>
 
-                {/* </div> */}
             </Box>
-            {/* </div> */}
         </>
     );
 }

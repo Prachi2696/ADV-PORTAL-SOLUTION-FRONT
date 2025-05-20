@@ -70,26 +70,34 @@ export default function KeyMapping() {
     useEffect(() => {
 
         window.scrollTo(0, 0)
-        fetch(BaseLocal + "isSessNull")
-            // fetch("http://localhost:8082/isSessNull")
-            .then((response) => {
+        // fetch(BaseLocal + "isSessNull")
+        //     // fetch("http://localhost:8082/isSessNull")
+        //     .then((response) => {
 
-                if (response.status == 400) {
-                    console.log("bad request ")
-                }
-            }).then((actualData) =>
-                console.log(actualData + "___response from JAVA ")
-            )
-            .catch((err) => {
-                console.log(err.message);
+        //         if (response.status == 400) {
+        //             console.log("bad request ")
+        //         }
+        //     }).then((actualData) =>
+        //         console.log(actualData + "___response from JAVA ")
+        //     )
+        //     .catch((err) => {
+        //         console.log(err.message);
 
-                localStorage.clear();
-                history.push("/LoginRequired")
-            });
-
-
+        //         localStorage.clear();
+        //         history.push("/LoginRequired")
+        //     });
 
 
+
+        const token = sessionStorage.getItem("token");
+        // if (token) {
+        //     const payload = JSON.parse(atob(token.split('.')[1]));
+        //     const exp = payload.exp;
+        //     if (Date.now() >= exp * 1000) {
+        //         sessionStorage.removeItem("token");
+        //         history.push('/deptadmin/loginwithjwt');
+        //     }
+        // }
 
         const fetchData = () => {
             fetch(BaseurlAdmin + "keyid")

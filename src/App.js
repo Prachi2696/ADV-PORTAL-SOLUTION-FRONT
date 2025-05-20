@@ -1,5 +1,6 @@
 import { Route } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
+import React from 'react';
 
 import Report from './pages/Report';
 
@@ -17,7 +18,7 @@ import Navbar2 from './components/Navbar2';
 
 import { useEffect, useState } from 'react';
 import '../src/App.css';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import { createTheme , ThemeProvider } from '@material-ui/core/styles';
 import { useTheme } from '@material-ui/core/styles';
 import NavbarShrink from './components/NavbarShrink';
 import Footer2 from './pages/Footer2';
@@ -44,6 +45,13 @@ import Invoicetable from './components/Invoicetable';
 import EditableTable from './components/EditableTable';
 import DeptwiseInvoice from './components/DeptwiseInvoice';
 import CheckNoofServices from './components/CheckNoofServices';
+import LoginwithJWT from './components/LoginwithJWT';
+import PrivateRoute from './components/PrivateRoute';
+import ProtectedPage from './components/ProtectedPage';
+import loadUserData from './components/loadUserData';
+import { Switch } from 'react-router-dom';
+import LoginPage from './components/LoginPage.js'
+import ForgotPassword from './components/ForgotPassword.js'
 
 
 // import PhotosnVideos from './components/PhotosnVideos';
@@ -55,7 +63,7 @@ import CheckNoofServices from './components/CheckNoofServices';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 
-const lightTheme = createMuiTheme({
+const lightTheme = createTheme ({
   palette: {
     type: 'light',
   },
@@ -137,7 +145,7 @@ const lightTheme = createMuiTheme({
   // background: 'linear-gradient(to right, #330867 , #30CFD0 )'
 });
 
-const darkTheme = createMuiTheme({
+const darkTheme = createTheme ({
   palette: {
     type: 'dark',
 
@@ -226,55 +234,24 @@ const darkTheme = createMuiTheme({
 
 });
 
-
+export const AuthContext = React.createContext();
 function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(!!sessionStorage.getItem("token"));
   const realtheme = useTheme();
-  let { authStore } = useSelector((state) => state);
+  // let { authStore } = useSelector((state) => state);
 
 
-  // const googleTranslateRef = useRef();
 
-  // useEffect(() => {
-  //   const script = document.createElement("script");
-  //   script.src =
-  //     "//translate.google.com/translate_a/element.js?cb=onGoogleTranslateLoad";
-  //   document.body.appendChild(script);
-  //   window.onGoogleTranslateLoad = () => {
-  //     new window.google.translate.TranslateElement(
-  //       {
-  //         pageLanguage: "en",
-  //         includedLanguages:
-  //           "en,hi,mr",
-  //         layout: window.google.translate.TranslateElement.InlineLayout.HORIZONTAL,
-  //         autoDisplay: false,
-  //         gaTrack: true,
-  //         gaId: "UA-xxxxxxx-x",
-  //       },
-  //       googleTranslateRef.current
-  //     );
-  //   };
-  // }, []);
-  // const [theme, setTheme] = useState('light');
-
-  // const theme = useTheme();
-  // alert(theme)
 
   const [portaltype, setportaltype] = useState();
 
   useEffect(() => {
-
-    if (authStore.type == 'd') {
-      setportaltype(true)
-    } else {
-      setportaltype(false)
-    }
-    // console.log(portaltype + "--------------------selected type")
-
-    // console.log(JSON.stringify(theme) + "-------------------theme")
-    // const stheme=localStorage.getItem('theme')
-    // setSelecttheme( stheme)
-    // console.log(selecttheme + "--------------------selected theme")
-
+    const checkAuth = () => {
+      setIsAuthenticated(!!sessionStorage.getItem("token"));
+    };
+    checkAuth();
+    window.addEventListener("storage", checkAuth);
+    return () => window.removeEventListener("storage", checkAuth);
 
   }, [])
 
@@ -300,151 +277,57 @@ function App() {
 
   return (
     <>
-      {/* <div ref={googleTranslateRef} /> */}
-      {/* <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}> */}
+      <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated }}>
 
-      {/* {authStore.type=='d' && <Sidebar/>}
-      {authStore.loginStatus &&
-            <>
-              <div className="md:ml-64">
-                <Route exact path="/admin/applicationDetails" component={ApplicationDetails} />
-                <Route exact path="/admin/applicationinfo/:appcode" component={props => <ApplicationsInfo {...props} />} />
-                <Route exact path="/admin/appdetails" component={AppDetails} />
-                <Route exact path="/adv" component={Dashboard} />
-                <Route exact path="/admin/reports" component={Report} />
-                <Route exact path="/admin/billing" component={Billing} />
-
-
-              </div>
-            </>
-
-
-          } */}
-      {/* <Route exact path="/dashboard" component={Navbar2} /> */}
       <Navbar2 theme={theme} handleThemeChange={handleThemeChange} />
+
 
       <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
 
         <div style={{ backgroundColor: bodybgcolor }}>
-          {/* <Button onClick={handleThemeChange}>
-            {theme === 'dark' ? <DarkModeIcon style={{ color: 'white' }} /> : <DarkModeIcon style={{ color: 'black' }} />}
-          </Button> */}
-          {/* <Navbar2 /> */}
-          {/* <FontSizeSelector/> */}
-          {/* <Route exact path="/" component={HeaderAdv} /> */}
+
           <HeaderAdv />
 
 
-          {/* <Navbar3 /> */}
-          {/* <Route exact path="/" component={NavbarShrink} /> */}
+
           <NavbarShrink />
+          {/* {authStore.type == 'd' && <Sidebar />} */}
+          
+          {isAuthenticated && <Sidebar />}
+          <div className="md:ml-64" style={{ marginTop: '12%' }}>
+            <Switch>
+              {/* <Route exact path="/deptadmin/loginwithjwt" component={LoginwithJWT} /> */}
+              <Route exact path="/deptadmin/loginwithjwt" component={LoginPage} />
+              {/* <PrivateRoute exact path="/deptadmin/test" component={loadUserData} /> */}
+              <PrivateRoute exact path="/deptadmin/registration" component={Registration} />
+              <PrivateRoute exact path="/deptadmin" component={Dashboard} />
+              <PrivateRoute exact path="/deptadmin/adminappdetails" component={AdminAppDetails} />
+              <PrivateRoute exact path="/deptadmin/appregistration" component={AppRegistration} />
+              <PrivateRoute exact path="/deptadmin/keyregistration" component={KeyRegistration} />
+              <PrivateRoute exact path="/deptadmin/keymapping" component={KeyMapping} />
+              {/* <PrivateRoute exact path="/deptadmin/reports" component={Report} /> */}
+              <PrivateRoute exact path="/deptadmin/reportsapp" component={ReportApp} />
+              <PrivateRoute exact path="/deptadmin/appcharts/:appcode" component={AppWiseoprTransactionBarchart} />
+              <PrivateRoute exact path="/deptadmin/applicationDetails" component={ApplicationDetails} />
+              <PrivateRoute exact path="/deptadmin/applicationinfo/:appcode/:appName" component={props => <ApplicationsInfo {...props} />} />
+              <PrivateRoute exact path="/deptadmin/appcharts/:appcode" component={AppWiseoprTransactionBarchart} />
+              {/* <Route exact path="/deptadmin/log" component={LoginPage} /> */}
+              <Route exact path="/deptadmin/forgot-password" component={ForgotPassword} />
+              {/* other routes */}
+            </Switch>
+          </div>
 
-          {/* <Navbarresp /> */}
 
-          {/* {authStore.loginStatus && <> */}
-
-          {authStore.type == 'd' && <Sidebar />}
-
-
-          {/* </>  } */}
-
-          {/* {authStore.loginStatus && */}
-            <>
-              <div className="md:ml-64" style={{ marginTop: '12%' }}>
-                <Route exact path="/deptadmin/applicationDetails" component={ApplicationDetails} />
-                {/* <Route exact path="/admin/applicationinfo/:appcode" component={props => <ApplicationsInfo {...props} />} /> */}
-                <Route exact path="/deptadmin/applicationinfo/:appcode/:appName" component={props => <ApplicationsInfo {...props} />} />
-                <Route exact path="/deptadmin/adminappdetails" component={AdminAppDetails} />
-                <Route exact path="/deptadmin/allowedopr" component={AdminAllowedOperations} />
-                <Route exact path="/deptadmin/registration" component={Registration} />
-                <Route exact path="/deptadmin/appregistration" component={AppRegistration} />
-                <Route exact path="/deptadmin/keyregistration" component={KeyRegistration} />
-                <Route exact path="/deptadmin/keymapping" component={KeyMapping} />
-
-                <Route exact path="/deptadmin/keyinfoupdate" component={KeyInfoUpdate} />
-                <Route exact path="/deptadmin/appdetails" component={AppDetails} />
-
-                {/* <Route exact path="/deptadmin/invoice1" component={Invoicetable} /> */}
-                {/* <Route exact path="/deptadmin/invoiceregistration" component={EditableTable} /> */}
-                {/* <Route exact path="/deptadmin/deptwiseinvoice" component={DeptwiseInvoice} /> */}
-
-                <Route exact path="/deptadmin" component={Dashboard} />
-                <Route exact path="/deptadmin/reports" component={Report} />
-                <Route exact path="/deptadmin/billing" component={Billing} />
-                <Route exact path="/deptadmin/reportsapp" component={ReportApp} />
-                <Route exact path="/deptadmin/billingapp" component={BillingApp} />
-                <Route exact path="/deptadmin/appcharts/:appcode" component={AppWiseoprTransactionBarchart} />
-                {/* <Route exact path="/deptadmin/chartforinvoice" component={ChartforInvoice} /> */}
-                {/* <Route exact path="/deptadmin/invoicedetail" component={InvoiceDetail} /> */}
-                {/* <Route exact path="/deptadmin/invoiceregistration" component={invoiceReg} /> */}
-                <Route exact path="/deptadmin/aa" component={A} />
-                <Route exact path="/deptadmin/toggle" component={ToggleButtons} />
-                <Route exact path="/deptadmin/noofservices" component={CheckNoofServices} />
-
-              </div>
-            </>
-          {/* } */}
-          {/* {!authStore.loginStatus && */}
-            <>
-              <div className="md:ml-64" >
-                <Route exact path="/deptadmin/LoginRequired" component={LoginRequired} />
-                <Route exact path="/deptadmin/applicationinfo/:appcode" component={LoginRequired} />
-                <Route exact path="/deptadmin/appdetails" component={LoginRequired} />
-                <Route exact path="/deptadmin" component={LoginRequired} />
-                <Route exact path="/deptadmin/reports" component={LoginRequired} />
-                <Route exact path="/deptadmin/billing" component={LoginRequired} />
-                <Route exact path="/deptadmin/reportsapp" component={LoginRequired} />
-                <Route exact path="/deptadmin/billingapp" component={LoginRequired} />
-
-              </div>
-            </>
-          {/* } */}
-          <Route exact path="/deptadmin/Login" component={Login} />
-          {/*=====================================After Login============================== */}
-          <Route exact path="/deptadmin/SignIn" component={SingIn} />
-          <Route path="/deptadmin/LoginRequired" component={LoginRequired} />
-
-          {/* ////////////////////////////////////////////////////////////////////////////////// */}
-
-          {/* 
-          <Grid container spacing={0}>
-            <Grid item lg={9} xs={12} sm={9}>
-
-              <Route exact path="/adv" component={CarouselBtoT} />
-
-            </Grid>
-            <Grid item lg={3} xs={12} sm={3}>
-              <Route exact path="/adv" component={News} />
-
-            </Grid>
-          </Grid> */}
-
-          {/* <Route exact path="/" component={StaticDashboard} /> */}
-
-          {/* <br></br> */}
+          
 
 
 
-
-          {/* <Grid container spacing={1}>
-            <Grid item lg={12} xs={12}>
-              <Route exact path="/adv" component={StaticDashboard} />
-            </Grid> */}
-
-
-          {/* <Route exact path="/adv" component={MultiCarousel} /> */}
-          {/* <Route exact path="/" component={PhotosnVideos} /> */}
-          {/* </Grid> */}
-
-          {/* <Route exact path="/adv" component={ChatBot} /> */}
-          {/* <Demo /> */}
-          {/* <Footer1 /> */}
-          {/* <Route exact path="/" component={Footer2} /> */}
           <Footer2 />
 
 
         </div>
       </ThemeProvider>
+      </AuthContext.Provider>
     </>
   );
 }

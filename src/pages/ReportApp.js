@@ -21,7 +21,7 @@ import { useTheme } from '@material-ui/core/styles';
 const Report = () => {
   const theme = useTheme()
   let history = useHistory();
-  var decryptedText = "";
+  var decryptedText = "adv19";
   const [apicall, setApicall] =useState("")
 
   let [username, setusername] = useState();
@@ -37,70 +37,70 @@ const Report = () => {
 
 
   useEffect(() => {
-    if (localStorage.getItem("LsdItped") === null) {
-      window.location.replace(BaseLocal + "Logout");
-    }
-    else {
+    // if (localStorage.getItem("LsdItped") === null) {
+    //   window.location.replace(BaseLocal + "Logout");
+    // }
+    // else {
 
-    }
-    /////////////////////////////get lc
-    var CryptoJS = require("crypto-js");
-    var base64Key = "QWJjZGVmZ2hpamtsbW5vcA==";
-    var key = CryptoJS.enc.Base64.parse(base64Key);
-    var plaintText = "x";
-    var encryptedData = CryptoJS.AES.encrypt(plaintText, key, {
-      mode: CryptoJS.mode.ECB,
-      padding: CryptoJS.pad.Pkcs7,
-    });
-    if (localStorage.getItem("LsdItped")) {
-      var decryptedData = CryptoJS.AES.decrypt(
-        localStorage.getItem("LsdItped").replace("slashinurl", "/").replace("plusinurl", "+"),
-        key,
-        {
-          mode: CryptoJS.mode.ECB,
-          padding: CryptoJS.pad.Pkcs7,
-        }
-      );
-      decryptedText = decryptedData.toString(CryptoJS.enc.Utf8);
-    }
-    setusername(decryptedText)
+    // }
+    // /////////////////////////////get lc
+    // var CryptoJS = require("crypto-js");
+    // var base64Key = "QWJjZGVmZ2hpamtsbW5vcA==";
+    // var key = CryptoJS.enc.Base64.parse(base64Key);
+    // var plaintText = "x";
+    // var encryptedData = CryptoJS.AES.encrypt(plaintText, key, {
+    //   mode: CryptoJS.mode.ECB,
+    //   padding: CryptoJS.pad.Pkcs7,
+    // });
+    // if (localStorage.getItem("LsdItped")) {
+    //   var decryptedData = CryptoJS.AES.decrypt(
+    //     localStorage.getItem("LsdItped").replace("slashinurl", "/").replace("plusinurl", "+"),
+    //     key,
+    //     {
+    //       mode: CryptoJS.mode.ECB,
+    //       padding: CryptoJS.pad.Pkcs7,
+    //     }
+    //   );
+    //   decryptedText = decryptedData.toString(CryptoJS.enc.Utf8);
+    // }
+    // setusername(decryptedText)
     /////////////////////////////get username
 
     // -----------------------------------------code to check wheather user is logout or not----------------------------------------------
 
-    if (localStorage.getItem("LsdItped") === null) { }
-    else {
+    // if (localStorage.getItem("LsdItped") === null) { }
+    // else {
 
-      fetch(BaseLocal + "isSessNull", {
-        method: "POST",
-        body: decryptedText,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-        .then((response) => {
-          return response;
-        })
-        .then((response) => {
-          return response;
-        })
-        .then((actualData) => {
-          console.log(actualData)
-          console.log(actualData.status)
-          if (actualData.status === 400) {
-            window.location.replace(BaseLocal + "Logout");
+    //   fetch(BaseLocal + "isSessNull", {
+    //     method: "POST",
+    //     body: decryptedText,
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //   })
+    //     .then((response) => {
+    //       return response;
+    //     })
+    //     .then((response) => {
+    //       return response;
+    //     })
+    //     .then((actualData) => {
+    //       console.log(actualData)
+    //       console.log(actualData.status)
+    //       if (actualData.status === 400) {
+    //         window.location.replace(BaseLocal + "Logout");
 
-          }
-        })
-        .catch((err) => {
-          console.log(err.message);
-          if (err.message == "Failed to fetch") {
+    //       }
+    //     })
+    //     .catch((err) => {
+    //       console.log(err.message);
+    //       if (err.message == "Failed to fetch") {
 
-            history.push("/adv/LoginRequired")
-          }
+    //         history.push("/adv/LoginRequired")
+    //       }
 
-        });
-    }
+    //     });
+    // }
 
 
 
@@ -143,6 +143,15 @@ const Report = () => {
         })
     }
     fetchData();
+    const token = sessionStorage.getItem("token");
+    // if (token) {
+    //     const payload = JSON.parse(atob(token.split('.')[1]));
+    //     const exp = payload.exp;
+    //     if (Date.now() >= exp * 1000) {
+    //         sessionStorage.removeItem("token");
+    //         history.push('/deptadmin/loginwithjwt');
+    //     }
+    // }
 
   }, []);
 

@@ -181,24 +181,36 @@ function Registration() {
 
 
     useEffect(() => {
+
+        //----------------JWT-------------------------------
+        // const token = window.sessionStorage.getItem("token");
+        // if (!token) {
+        //     // Redirect to login page if no token found
+        //     history.push('/deptadmin/loginwithjwt');
+        //     return;
+        // }
+        const token = sessionStorage.getItem("token");
+        
+
+        //------------------------------------------------------
         window.scrollTo(0, 0)
 
-        fetch(BaseLocal + "isSessNull")
-            // fetch("http://localhost:8082/isSessNull")
-            .then((response) => {
+        // fetch(BaseLocal + "isSessNull")
+        //     // fetch("http://localhost:8082/isSessNull")
+        //     .then((response) => {
 
-                if (response.status == 400) {
-                    console.log("bad request ")
-                }
-            }).then((actualData) =>
-                console.log(actualData + "___response from JAVA ")
-            )
-            .catch((err) => {
-                console.log(err.message);
+        //         if (response.status == 400) {
+        //             console.log("bad request ")
+        //         }
+        //     }).then((actualData) =>
+        //         console.log(actualData + "___response from JAVA ")
+        //     )
+        //     .catch((err) => {
+        //         console.log(err.message);
 
-                localStorage.clear();
-                history.push("/LoginRequired")
-            });
+        //         localStorage.clear();
+        //         history.push("/LoginRequired")
+        //     });
 
 
 
@@ -368,17 +380,18 @@ function Registration() {
 
             // e.preventDefault()
             // alert(state_code)
-            let demo = JSON.stringify({ dept_name, address, contact_person, designation, email, mobile, phone, username, passwd, city, state_code, pincode, category, slab_id,dept_is_active })
+            let demo = JSON.stringify({ dept_name, address, contact_person, designation, email, mobile, phone, username, passwd, city, state_code, pincode, category, slab_id, dept_is_active })
             // console.log(demo)
             // console.log(JSON.parse(demo))
             // alert(JSON.stringify(demo))
-            if (dept_name != "" && address != "" && contact_person != "" && designation != "" && email != "" && mobile != ""  && username != "" && city != "" && state_code != "" && pincode != "" && category != "" && dept_is_active!="") {
+            if (dept_name != "" && address != "" && contact_person != "" && designation != "" && email != "" && mobile != "" && username != "" && city != "" && state_code != "" && pincode != "" && category != "" && dept_is_active != "") {
                 // alert("before page")
+
                 fetch(BaseurlAdmin + `deptregistration`,
 
                     {
                         method: "POST",
-                        body: JSON.stringify({ dept_name, address, contact_person, designation, email, mobile, phone, username, passwd, city, state_code, pincode, category, slab_id,dept_is_active }),
+                        body: JSON.stringify({ dept_name, address, contact_person, designation, email, mobile, phone, username, passwd, city, state_code, pincode, category, slab_id, dept_is_active }),
                         headers: {
                             "Content-Type": "application/json",
                             "Access-Control-Allow-Origin": "http://localhost:3000",
@@ -513,8 +526,8 @@ function Registration() {
                                         onChange={
                                             (e) => (setphone(e.target.value))
                                         }
-                                        // error={phoneError}
-                                        // helperText={phoneHelperText}
+                                    // error={phoneError}
+                                    // helperText={phoneHelperText}
                                     />
                                 </Grid>
                                 <Grid item xs={6} align="center">
@@ -574,7 +587,7 @@ function Registration() {
                                         // style={{ margin: '26px 18px' }}
                                         size='small'
                                     >
-                                        <ToggleButton value="true" color="primary" fullWidth> 
+                                        <ToggleButton value="true" color="primary" fullWidth>
                                             Active
                                         </ToggleButton>
                                         <ToggleButton value="false" color="primary" fullWidth>
